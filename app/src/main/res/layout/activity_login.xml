@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:text=""
             android:hint="输入服务器地址"
             android:background="@null"
             android:padding="10dp"/>

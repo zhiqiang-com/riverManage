@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -108,11 +109,14 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
         //1.调用网络进行登录
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        params.put("user.loginid", loginid);
-        params.put("user.password", password);
+        params.put("user.Name", loginid);
+        params.put("user.passWord", password);
 
         //url:   parmas：请求时携带的参数信息   responseHandler：是一个匿名内部类接受成功过失败
         String url = UrlConst.LOGIN;
+        Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
+        System.out.println( url);
+
         asyncHttpClient.post(url, params, new AsyncHttpResponseHandler() {
 
             @Override
@@ -122,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
                 //判断状态码
                 if(statusCode == 200){
                     //获取结果
+
                     try {
                         String result = new String(responseBody,"utf-8");
                         //Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
@@ -169,6 +174,13 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
             tv.setVisibility(View.VISIBLE);
             tv.setTextColor(Color.WHITE);
             tv.setText("完成验证");
+
+            Toast.makeText(this, "执行了", Toast.LENGTH_SHORT).show();
+
+            //1.调用网络访问进行登录
+            String loginid = et_number.getText().toString().trim();
+            String password = et_password.getText().toString().trim();
+            doLogin(loginid, password);
         } else {
             tv.setVisibility(View.INVISIBLE);
         }
