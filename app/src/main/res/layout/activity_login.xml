@@ -155,7 +155,7 @@
                 android:max="100"
                 android:progress="0"
                 android:progressDrawable="@drawable/seekbar_bg"
-                android:thumb="@drawable/huakuai2"
+                android:thumb="@drawable/huakuai"
                 android:thumbOffset="0dp" />
 
             <TextView
