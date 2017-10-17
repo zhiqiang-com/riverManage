@@ -3,6 +3,7 @@ package com.org.rivermanage.activaty;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -24,7 +26,7 @@ import org.apache.http.Header;
 
 import java.io.UnsupportedEncodingException;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener{
 
     private EditText et_number;
     private EditText et_password;
@@ -33,11 +35,18 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_ip;
     private TextView tv_reg;
 
+
+    private TextView tv;
+    private SeekBar seekBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        tv = (TextView) findViewById(R.id.tv_login);
+        seekBar = (SeekBar) findViewById(R.id.sb);
+        seekBar.setOnSeekBarChangeListener(this);
 
         et_ip = (EditText) findViewById(R.id.et_ip);
         et_number = (EditText) findViewById(R.id.et_number);
@@ -147,4 +156,46 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * seekBar进度变化时回调
+     *
+     * @param seekBar
+     * @param progress
+     * @param fromUser
+     */
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (seekBar.getProgress() == seekBar.getMax()) {
+            tv.setVisibility(View.VISIBLE);
+            tv.setTextColor(Color.WHITE);
+            tv.setText("完成验证");
+        } else {
+            tv.setVisibility(View.INVISIBLE);
+        }
+    }
+    /**
+     * seekBar开始触摸时回调
+     *
+     * @param seekBar
+     */
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    /**
+     * seekBar停止触摸时回调
+     *
+     * @param seekBar
+     */
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+        if (seekBar.getProgress() != seekBar.getMax()) {
+            seekBar.setProgress(0);
+            tv.setVisibility(View.VISIBLE);
+            tv.setTextColor(Color.GRAY);
+            tv.setText("请按住滑块，拖动到最右边");
+        }
+    }
 }
