@@ -33,8 +33,8 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
     private EditText et_password;
     private CheckBox chk_rememPwd;
     private CheckBox chk_autoLogin;
-    private EditText et_ip;
-    private TextView tv_reg;
+//    private EditText et_ip;
+
 
 
     private TextView tv;
@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
         seekBar = (SeekBar) findViewById(R.id.sb);
         seekBar.setOnSeekBarChangeListener(this);
 
-        et_ip = (EditText) findViewById(R.id.et_ip);
         et_number = (EditText) findViewById(R.id.et_number);
         et_password = (EditText) findViewById(R.id.et_password);
         chk_rememPwd = (CheckBox) findViewById(R.id.chk_rememPwd);
@@ -114,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
 
         //url:   parmas：请求时携带的参数信息   responseHandler：是一个匿名内部类接受成功过失败
         String url = UrlConst.LOGIN;
-        Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
         System.out.println( url);
 
         asyncHttpClient.post(url, params, new AsyncHttpResponseHandler() {
@@ -173,9 +172,9 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
         if (seekBar.getProgress() == seekBar.getMax()) {
             tv.setVisibility(View.VISIBLE);
             tv.setTextColor(Color.WHITE);
-            tv.setText("完成验证");
+            tv.setText("请稍候...");
 
-            Toast.makeText(this, "执行了", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "执行了", Toast.LENGTH_SHORT).show();
 
             //1.调用网络访问进行登录
             String loginid = et_number.getText().toString().trim();
@@ -207,7 +206,7 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
             seekBar.setProgress(0);
             tv.setVisibility(View.VISIBLE);
             tv.setTextColor(Color.GRAY);
-            tv.setText("请按住滑块，拖动到最右边");
+            tv.setText("滑动登录");
         }
     }
 }

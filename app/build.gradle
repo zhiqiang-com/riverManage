@@ -28,6 +28,14 @@ android {
             signingConfig signingConfigs.config
         }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+
 }
 
 dependencies {
@@ -44,3 +52,7 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     testCompile 'junit:junit:4.12'
 }
+
+//dependencies {
+//    compile files('libs/BaiduLBS_Android.jar')
+//}
