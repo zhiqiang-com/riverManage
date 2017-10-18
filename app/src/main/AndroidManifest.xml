@@ -28,27 +28,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.org.rivermanage"
-            android:value="k9UeoDjlVWKn3GSjTPjfyhf4gtq132LD"/>
-
+            android:value="k9UeoDjlVWKn3GSjTPjfyhf4gtq132LD" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2" >
-                </action>
+                <action android:name="com.baidu.location.service_v2.2"></action>
             </intent-filter>
         </service>
 
-
-
-
-        <!--         android:theme="@android:style/Theme.NoTitleBar" -->
-        <activity android:name=".activaty.MainActivity"></activity>
+        <!-- android:theme="@android:style/Theme.NoTitleBar" -->
+        <activity android:name=".activaty.MainActivity" />
         <activity
             android:name=".activaty.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -58,8 +52,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".activaty.UploadActivity"></activity>
     </application>
 
 </manifest>
