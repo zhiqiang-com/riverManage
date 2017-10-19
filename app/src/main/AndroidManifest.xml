@@ -37,14 +37,14 @@
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2"></action>
+                <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
 
         <!-- android:theme="@android:style/Theme.NoTitleBar" -->
         <activity android:name=".activaty.MainActivity" />
         <activity
-            android:name=".activaty.LoginActivity"
+            android:name=".activaty.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,7 +52,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activaty.UploadActivity"></activity>
+        <activity android:name=".activaty.UploadActivity" />
+        <activity android:name=".activaty.GuideActivity" />
+        <activity android:name=".activaty.LoginActivity"></activity>
     </application>
 
 </manifest>
