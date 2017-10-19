@@ -136,14 +136,19 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
                 Intent intent1 = getIntent();
                 boolean isWelcomeIn = intent1.getBooleanExtra("welcome", false);
                 if (isWelcomeIn) {
+
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
+
                     SharedPreferences preferences = getSharedPreferences(DataUtil.sharedPreferenceFile, MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(DataUtil.isFirstInKey, false);
                     editor.commit();
+
                 }
+
                 finish();
+
             }
         });
 

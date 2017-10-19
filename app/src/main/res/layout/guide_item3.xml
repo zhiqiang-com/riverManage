@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/guide_item">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/guide_3" />
+    android:orientation="horizontal"
+    android:id="@+id/guide_item"
+    android:background="@drawable/guide_3"
+    >
 
     <TextView
         android:id="@+id/skip"
@@ -17,4 +16,4 @@
         android:layout_marginRight="5dp"
         android:text="跳过" />
 
-</RelativLayout>
+</RelativeLayout>
