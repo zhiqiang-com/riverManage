@@ -1,133 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/activity_login"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-    tools:context="com.org.rivermanage.activaty.UploadActivity"
-android:background="@drawable/upload_bg"
-android:weightSum="1"
-
-    >
-
-<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+
+    android:background="@drawable/upload_bg"
+    android:weightSum="1"
+
     >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="选择图片或视频资料上传"
-        android:layout_marginTop="5dp"/>
-
+    <!--tools:context="com.org.rivermanage.MainActivity"-->
     <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="选择图片或视频资料上传" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/tv_im"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/upload" />
+
+
+        </LinearLayout>
+        <!--
+
         <ImageButton
-            android:id="@+id/ib1"
-            android:layout_width="96dp"
-            android:layout_height="102dp"
-            android:background="@drawable/upload"
-            />
-        <ImageButton
-            android:id="@+id/ib2"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/ib1"
-            android:layout_width="96dp"
-            android:layout_height="102dp"
-            android:background="@drawable/upload"
-            />
-    </LinearLayout>
+                android:id="@+id/ib2"
+                android:layout_width="96dp"
+                android:layout_height="102dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/ib1"
+                android:background="@drawable/upload" />
+                -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="选取图片" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="选取视频" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选取图片" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="经度："/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="选取视频" />
+            <!--Refresh-->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_R"
+                android:layout_marginLeft="15dp"
+                android:text="刷新位置" />
 
-        <TextView
-            android:layout_width="150dp"
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:scrollbars="vertical"
+                android:id="@+id/tv_location"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="纬度："/>
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content" />
+                ></TextView>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="位置："/>
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="经度：" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/editText"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="wrap_content" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="纬度：" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="wrap_content" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="1dp">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="位置：" />-->
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+        <!--</LinearLayout>-->
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="文字描述："/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="文字描述：" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:hint="请填写文字说明"
-        android:gravity="top"
-        android:layout_weight="0.22"
-        android:background="@drawable/wzi"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="添加语音资料："/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+            android:background="@drawable/wzi"
+            android:gravity="top"
+            android:hint="请填写文字说明" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加语音资料：" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="按住说话" />
+
+        </RelativeLayout>
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="按住说话"
-            />
+            android:background="@color/colorPrimary"
+            android:text="上传" />
+    </LinearLayout>
+</LinearLayout>
 
-    </RelativeLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="上传"
-        android:background="@color/colorPrimary" />
-</LinearLayout>
-</LinearLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:id="@+id/activity_login"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="vertical"-->
+    <!--tools:context="com.org.rivermanage.activaty.UploadActivity"-->
+<!--android:background="@drawable/upload_bg"-->
+<!--android:weightSum="1"-->
+
+    <!--&gt;-->
+
+<!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_margin="10dp"-->
+    <!--&gt;-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="选择图片或视频资料上传"-->
+        <!--android:layout_marginTop="5dp"/>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent">-->
+        <!--<ImageButton-->
+            <!--android:id="@+id/ib1"-->
+            <!--android:layout_width="96dp"-->
+            <!--android:layout_height="102dp"-->
+            <!--android:background="@drawable/upload"-->
+            <!--/>-->
+        <!--<ImageButton-->
+            <!--android:id="@+id/ib2"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_toRightOf="@id/ib1"-->
+            <!--android:layout_width="96dp"-->
+            <!--android:layout_height="102dp"-->
+            <!--android:background="@drawable/upload"-->
+            <!--/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="选取图片" />-->
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:text="选取视频" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="经度："/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/editText" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="纬度："/>-->
+        <!--<TextView-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="wrap_content" />-->
+
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="1dp">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="位置："/>-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</LinearLayout>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:text="文字描述："/>-->
+
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:hint="请填写文字说明"-->
+        <!--android:gravity="top"-->
+        <!--android:layout_weight="0.22"-->
+        <!--android:background="@drawable/wzi"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="添加语音资料："/>-->
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="按住说话"-->
+            <!--/>-->
+
+    <!--</RelativeLayout>-->
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="上传"-->
+        <!--android:background="@color/colorPrimary" />-->
+<!--</LinearLayout>-->
+<!--</LinearLayout>-->
   
