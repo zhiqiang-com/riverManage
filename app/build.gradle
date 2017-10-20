@@ -6,7 +6,8 @@ android {
             keyAlias 'riverManage_key'
             keyPassword 'houzhiqiang160'
 //            storeFile file('E:User/Desktop/ShiXun/riverManage/app/riverManageKey.jks')
-            storeFile file('E:/User/Desktop/ShiXun/riverManage/riverManageKey.jks')
+            storeFile file('E:/riverManage/riverManageKey.jks')
+//            storeFile file('E:/User/Desktop/ShiXun/riverManage/riverManageKey.jks')
             storePassword 'houzhiqiang'
         }
     }
