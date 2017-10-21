@@ -100,7 +100,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onStop(String filePath) {
                 Toast.makeText(UploadActivity.this, "录音保存在：" + filePath, Toast.LENGTH_SHORT).show();
-                mTextView.setText(TimeUtils.long2String(0));
+               mTextView.setText(TimeUtils.long2String(0));
             }
         });
         //6.0以上需要权限申请
