@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:layout_marginTop="50dp"
+        android:id="@+id/et_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="/storage/emulated/0/Movies/QQ视频.mp4"
+
+
+        android:textSize="20sp"/>
+<!-- android:text="/storage/emulated/0/Pictures/显卡天梯图.jpg"-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_upload"
+        android:text="上传"/>
+
+    </LinearLayout>
+
