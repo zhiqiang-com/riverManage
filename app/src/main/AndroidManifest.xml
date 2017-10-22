@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
-            android:name="com.org.rivermanage"
+            android:name="com.baidu.lbsapi.API_KEY"
             android:value="k9UeoDjlVWKn3GSjTPjfyhf4gtq132LD" />
         <!--                 k9UeoDjlVWKn3GSjTPjfyhf4gtq132LD
                              -->

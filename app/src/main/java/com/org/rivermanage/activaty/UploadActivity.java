@@ -21,6 +21,9 @@ import android.widget.TextView;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
@@ -30,6 +33,7 @@ import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.org.rivermanage.R;
 import com.org.rivermanage.base.LocationApplication;
+import com.org.rivermanage.constant.UrlConst;
 import com.org.rivermanage.service.LocationService;
 import com.org.rivermanage.utils.AudioRecoderUtils;
 import com.org.rivermanage.utils.FullyGridLayoutManager;
@@ -55,6 +59,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.Header;
+
+import java.io.File;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +88,7 @@ public class UploadActivity extends AppCompatActivity {
 
 
     private Button mButton;
+    private Button upload ;
     private ImageView mImageView;
     private TextView mTextView;
     private AudioRecoderUtils mAudioRecoderUtils;
@@ -98,6 +106,10 @@ public class UploadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+
+        upload = (Button) findViewById(R.id.upload_Btn);
+        upload.setOnClickListener( new upload_OnClick( ));
+
 
 
         themeId = R.style.picture_default_style;
@@ -308,8 +320,6 @@ public class UploadActivity extends AppCompatActivity {
     };
 
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -332,7 +342,6 @@ public class UploadActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private void requestPermissions() {
         //判断是否开启摄像头权限
@@ -455,7 +464,7 @@ public class UploadActivity extends AppCompatActivity {
 
     /*****
      *
-     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
+     * 定位结果回调，重写onReceiveLocation方法
      *
      */
     private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
@@ -472,7 +481,6 @@ public class UploadActivity extends AppCompatActivity {
                 sb.append(location.getLongitude());
                 sb.append("\n位置 : ");// 地址信息
                 sb.append(location.getAddrStr());
-
 
                 if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
                     sb.append("\n状态 : ");
@@ -496,10 +504,66 @@ public class UploadActivity extends AppCompatActivity {
                 }
                 logMsg(sb.toString());
 
-
             }
         }
 
     };
+
+
+    public class upload_OnClick implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+            try {
+                uploadFile( UrlConst.FILE_UPLOAD);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        public void uploadFile( String url) throws Exception {
+            File file1;
+            File file2;
+            File file3;
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+
+            if(selectList.size()>0){
+                file1=  new File(selectList.get(0).getCompressPath());
+                params.put("warning.zhaopian", file1);
+                params.put("warning.file",TimeUtils.getCurrentTime()+".jpg");
+            }
+
+            if(selectList2.size()>0){
+                file2=  new File(selectList2.get(0).getPath());
+                params.put("warning.shipin", file2);
+                params.put("warning.video",TimeUtils.getCurrentTime()+".mp4");
+            }
+
+                // 上传文件
+                client.post(url, params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // TODO Auto-generated method stub
+                        super.onRetry(retryNo);
+                        // 返回重试次数
+                    }
+
+                });
+        }
+
+    }
 
 }
