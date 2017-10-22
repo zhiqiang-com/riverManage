@@ -28,7 +28,7 @@
             android:id="@+id/btn_R"
             android:layout_marginLeft="15dp"
             android:textSize="13dp"
-            android:text="刷新" />
+            android:text="@string/RefreshLocation" />
     </LinearLayout>
     <View
         android:layout_width="fill_parent"
@@ -43,6 +43,7 @@
         android:textColor="@android:color/black" />
 
     <EditText
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -50,6 +51,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/bg_edittext"
         android:gravity="top"
+        android:maxLength="40"
         android:hint="请填写本次上传主题"
         />
     <TextView
@@ -60,6 +62,7 @@
         android:text="文字描述"
         android:textColor="@android:color/black"/>
     <EditText
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginRight="10dp"
@@ -80,36 +83,64 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+               android:layout_gravity="center_horizontal"
                 android:text="上传"
                 android:textSize="20dp"
                 android:textColor="@android:color/black" />
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="图片"
-                android:textSize="10sp" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="视频"
-                android:textSize="10sp" />
 
         </LinearLayout>
-            <ImageView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="30dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="图片"/>
+            <TextView
+                android:layout_marginLeft="70dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="视频"/>
+
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:id="@+id/tv_im"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="fitCenter"
-                android:background="@drawable/upload" />
+                android:overScrollMode="never" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler2"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
+            <!--<ImageView-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:id="@+id/tv_im"-->
+                <!--android:layout_width="80dp"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:background="@drawable/upload" />-->
 
         <View
             android:layout_width="fill_parent"

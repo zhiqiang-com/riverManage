@@ -7,4 +7,5 @@
     <!-- 纯白-->
     <color name="white">#ffffff</color>
     <color name="colorGray">#33000000</color>
+    <color name="color_f6">#f6f6f6</color>
 </resources>
