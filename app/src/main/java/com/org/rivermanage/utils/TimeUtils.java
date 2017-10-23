@@ -35,7 +35,7 @@ public class TimeUtils {
      * @return
      */
     public static String  getCurrentTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(System.currentTimeMillis());
     }
 

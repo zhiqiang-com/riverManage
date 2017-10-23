@@ -108,31 +108,26 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
         //1.调用网络进行登录
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        params.put("user.Name", loginid);
+        params.put("user.loginid", loginid);
         params.put("user.passWord", password);
 
         //url:   parmas：请求时携带的参数信息   responseHandler：是一个匿名内部类接受成功过失败
         String url = UrlConst.LOGIN;
 //        Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
         System.out.println( url);
-
         asyncHttpClient.post(url, params, new AsyncHttpResponseHandler() {
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 //statusCode:状态码    headers：头信息  responseBody：返回的内容，返回的实体
-
                 //判断状态码
                 if(statusCode == 200){
                     //获取结果
-
                     try {
                         String result = new String(responseBody,"utf-8");
                         //Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
                         Gson gson = new Gson();
                         JsonResult jsonResult = gson.fromJson(result, JsonResult.class);
                         //Toast.makeText(LoginActivity.this, jsonResult.getMessage(), Toast.LENGTH_LONG).show();
-
                         //2.判断返回的json数据
                         //2.1若返回json数据success为true的话，调用保存密码与自动登录状态的方法
                         if(jsonResult.isSuccess()){   //2.1成功，则进入主界面
@@ -152,7 +147,6 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
                     }
                 }
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers,
                                   byte[] responseBody, Throwable error) {

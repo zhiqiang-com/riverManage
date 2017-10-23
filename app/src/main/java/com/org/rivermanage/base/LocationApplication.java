@@ -7,6 +7,7 @@ import android.os.Vibrator;
 
 
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.http.HttpClient;
 import com.org.rivermanage.service.LocationService;
 
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.org.rivermanage">
-
     <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位 -->
@@ -44,54 +43,19 @@
             </intent-filter>
         </service>
 
-        <!-- android:theme="@android:style/Theme.NoTitleBar" -->
-        <activity android:name=".activaty.MainActivity" />
-        <activity
-            android:name=".activaty.WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".activaty.UploadActivity" >
-
+        <activity android:name=".activaty.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
 
 
+        <activity android:name=".activaty.WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activaty.UploadActivity" />
         <activity android:name=".activaty.GuideActivity" />
         <activity android:name=".activaty.LoginActivity"/>
-        <activity android:name=".activaty.LocationFilterActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-
-        </activity>
-        <activity android:name=".activaty.test">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".activaty.TestMainActivity" >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-
     </application>
-
 </manifest>
