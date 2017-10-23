@@ -22,6 +22,7 @@ import com.loopj.android.http.RequestParams;
 import com.org.rivermanage.R;
 import com.org.rivermanage.constant.UrlConst;
 import com.org.rivermanage.utils.JsonResult;
+import com.org.rivermanage.utils.Sha1;
 
 import org.apache.http.Header;
 
@@ -33,7 +34,6 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
     private EditText et_password;
     private CheckBox chk_rememPwd;
     private CheckBox chk_autoLogin;
-//    private EditText et_ip;
 
 
 
@@ -109,7 +109,12 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("user.loginid", loginid);
-        params.put("user.passWord", password);
+        Sha1 sha1= new Sha1();
+//        sha1.getSha1(password);
+
+//        params.put("user.passWord", password);
+
+        params.put("user.passWord", sha1.getSha1(password));
 
         //url:   parmas：请求时携带的参数信息   responseHandler：是一个匿名内部类接受成功过失败
         String url = UrlConst.LOGIN;

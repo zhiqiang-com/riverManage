@@ -33,7 +33,6 @@
             android:value="k9UeoDjlVWKn3GSjTPjfyhf4gtq132LD" />
         <!--                 k9UeoDjlVWKn3GSjTPjfyhf4gtq132LD
                              -->
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -42,16 +41,13 @@
                 <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
-
-
         <activity android:name=".activaty.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".activaty.ShowListActivity"/>
         <activity android:name=".activaty.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activaty.UploadActivity" />

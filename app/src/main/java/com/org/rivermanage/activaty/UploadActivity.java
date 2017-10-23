@@ -431,6 +431,8 @@ public class UploadActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
+
+                        finish();
                     }
 
                     @Override

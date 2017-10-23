@@ -94,14 +94,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getApplicationContext(),"点击了",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, UploadActivity.class);
+                            startActivity(intent);
+//                             finish();
+                Toast.makeText(getApplicationContext(),"点击了添加",Toast.LENGTH_SHORT).show();
 
             }
         });
+
+        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ShowListActivity.class);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(),"点击了信息",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         SelectWrning();
         setUserMapCenter();
 
-        SelectWrningBy();
+//        SelectWrningBy();
 //        setMarker();
     }
 
@@ -148,46 +163,46 @@ public class MainActivity extends AppCompatActivity {
 //
 //    };
 
-    private Bundle Algorithm(BDLocation location) {
-        Bundle locData = new Bundle();
-        double curSpeed = 0;
-        if (locationList.isEmpty() || locationList.size() < 2) {
-            LocationEntity temp = new LocationEntity();
-            temp.location = location;
-            temp.time = System.currentTimeMillis();
-            locData.putInt("iscalculate", 0);
-            locationList.add(temp);
-        } else {
-            if (locationList.size() > 5)
-                locationList.removeFirst();
-            double score = 0;
-            for (int i = 0; i < locationList.size(); ++i) {
-                LatLng lastPoint = new LatLng(locationList.get(i).location.getLatitude(),
-                        locationList.get(i).location.getLongitude());
-                LatLng curPoint = new LatLng(location.getLatitude(), location.getLongitude());
-                double distance = DistanceUtil.getDistance(lastPoint, curPoint);
-                curSpeed = distance / (System.currentTimeMillis() - locationList.get(i).time) / 1000;
-                score += curSpeed * Utils.EARTH_WEIGHT[i];
-            }
-            if (score > 0.00000999 && score < 0.00005) { // 经验值,开发者可根据业务自行调整，也可以不使用这种算法
-                location.setLongitude(
-                        (locationList.get(locationList.size() - 1).location.getLongitude() + location.getLongitude())
-                                / 2);
-                location.setLatitude(
-                        (locationList.get(locationList.size() - 1).location.getLatitude() + location.getLatitude())
-                                / 2);
-                locData.putInt("iscalculate", 1);
-            } else {
-                locData.putInt("iscalculate", 0);
-            }
-            LocationEntity newLocation = new LocationEntity();
-            newLocation.location = location;
-            newLocation.time = System.currentTimeMillis();
-            locationList.add(newLocation);
-
-        }
-        return locData;
-    }
+//    private Bundle Algorithm(BDLocation location) {
+//        Bundle locData = new Bundle();
+//        double curSpeed = 0;
+//        if (locationList.isEmpty() || locationList.size() < 2) {
+//            LocationEntity temp = new LocationEntity();
+//            temp.location = location;
+//            temp.time = System.currentTimeMillis();
+//            locData.putInt("iscalculate", 0);
+//            locationList.add(temp);
+//        } else {
+//            if (locationList.size() > 5)
+//                locationList.removeFirst();
+//            double score = 0;
+//            for (int i = 0; i < locationList.size(); ++i) {
+//                LatLng lastPoint = new LatLng(locationList.get(i).location.getLatitude(),
+//                        locationList.get(i).location.getLongitude());
+//                LatLng curPoint = new LatLng(location.getLatitude(), location.getLongitude());
+//                double distance = DistanceUtil.getDistance(lastPoint, curPoint);
+//                curSpeed = distance / (System.currentTimeMillis() - locationList.get(i).time) / 1000;
+//                score += curSpeed * Utils.EARTH_WEIGHT[i];
+//            }
+//            if (score > 0.00000999 && score < 0.00005) { // 经验值,开发者可根据业务自行调整，也可以不使用这种算法
+//                location.setLongitude(
+//                        (locationList.get(locationList.size() - 1).location.getLongitude() + location.getLongitude())
+//                                / 2);
+//                location.setLatitude(
+//                        (locationList.get(locationList.size() - 1).location.getLatitude() + location.getLatitude())
+//                                / 2);
+//                locData.putInt("iscalculate", 1);
+//            } else {
+//                locData.putInt("iscalculate", 0);
+//            }
+//            LocationEntity newLocation = new LocationEntity();
+//            newLocation.location = location;
+//            newLocation.time = System.currentTimeMillis();
+//            locationList.add(newLocation);
+//
+//        }
+//        return locData;
+//    }
 
 
 //    /***
@@ -289,8 +304,6 @@ public class MainActivity extends AppCompatActivity {
         mBaiduMap.addOverlay(option);
     }
 
-
-    //调用网络访问进行登录
     private void SelectWrning(){
 
         //1.请求所有警告点
@@ -315,60 +328,4 @@ public class MainActivity extends AppCompatActivity {
                            });
 
     }
-
-
-    //查询用户上报信息
-    private void SelectWrningBy(){
-
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
-        params.put("loginid", loginid);
-        asyncHttpClient.post(UrlConst.SELRCTByLoginId_WRNING, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                //statusCode:状态码    headers：头信息  responseBody：返回的内容，返回的实体
-                //判断状态码
-                if(statusCode == 200){
-                    //获取结果
-                    try {
-                        String result = new String(responseBody,"utf-8");
-
-                        Gson gson = new Gson();
-                        JsonResult jsonResult = gson.fromJson(result, JsonResult.class);
-                        List list;
-
-
-                        if(jsonResult.isSuccess()){   //2.1成功，则进入主界面
-
-                             list = gson.fromJson(gson.toJson(jsonResult.getData()), new TypeToken<List<UserWaring>>(){}.getType());
-                          for (int i =0 ;i<list.size();i++){
-                              UserWaring w =  (UserWaring)list.get(i);
-                              w.getLatitude();
-                              w.getCreateTime();
-                              w.getDescription();
-                          }
-
-//                            Intent intent = new Intent(MainActivity.this, UploadActivity.class);
-//                            startActivity(intent);
-                        }else{   //2.2失败则显示提示信息
-
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers,
-                                  byte[] responseBody, Throwable error) {
-            }
-        });
-
-
-
-
-    }
-
-
 }
