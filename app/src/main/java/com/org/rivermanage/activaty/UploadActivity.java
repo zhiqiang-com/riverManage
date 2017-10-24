@@ -1,6 +1,8 @@
 package com.org.rivermanage.activaty;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.permissions.RxPermissions;
+import com.luck.picture.lib.tools.PictureFileUtils;
 import com.org.rivermanage.R;
 import com.org.rivermanage.base.LocationApplication;
 import com.org.rivermanage.constant.UrlConst;
@@ -34,6 +38,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 public class UploadActivity extends AppCompatActivity {
@@ -45,7 +51,9 @@ public class UploadActivity extends AppCompatActivity {
     private List<LocalMedia> selectList3 = new ArrayList<>();
 
     AsyncHttpClient client = new AsyncHttpClient();
-    RequestParams params = new RequestParams();
+//    RequestParams params = new RequestParams();
+
+    BDLocation Locations;
 
     private int maxSelectNum = 1;
     private RecyclerView recyclerView ;
@@ -56,15 +64,16 @@ public class UploadActivity extends AppCompatActivity {
     private GridImageAdapter adapter3;
     private int themeId;
     private TextView Description;
-    private TextView Name;
+    //    private TextView Name;
+    private String logingId;
 
 
 
 
     private Button upload ;
-        private LocationService locationService;
-        private TextView LocationResult;
-        private Button Refresh;
+    private LocationService locationService;
+    private TextView LocationResult;
+    private Button Refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +83,11 @@ public class UploadActivity extends AppCompatActivity {
         upload = (Button) findViewById(R.id.upload_Btn);
         upload.setOnClickListener( new upload_OnClick( ));
 
+        Intent intent = getIntent();
+        logingId=intent.getStringExtra("logingId");
+
         Description= (TextView)findViewById(R.id.Tv_description);
-        Name = (TextView)findViewById(R.id.Tv_Name);
+//        Name = (TextView)findViewById(R.id.Tv_Name);
 
 
         themeId = R.style.picture_default_style;
@@ -109,7 +121,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 if (selectList.size() > 0) {
-                            PictureSelector.create(UploadActivity.this).externalPicturePreview(position, selectList);
+                    PictureSelector.create(UploadActivity.this).externalPicturePreview(position, selectList);
                 }
             }
         });
@@ -120,7 +132,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onItemClick(int position, View v) {
                 if (selectList2.size() > 0) {
                     LocalMedia media = selectList2.get(position);
-                       PictureSelector.create(UploadActivity.this).externalPictureVideo(media.getPath());
+                    PictureSelector.create(UploadActivity.this).externalPictureVideo(media.getPath());
                 }
             }
         });
@@ -129,12 +141,12 @@ public class UploadActivity extends AppCompatActivity {
         adapter3.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                    LocalMedia media = selectList3.get(position);
-                            PictureSelector.create(UploadActivity.this).externalPictureAudio(media.getPath());
-                }
+                LocalMedia media = selectList3.get(position);
+                PictureSelector.create(UploadActivity.this).externalPictureAudio(media.getPath());
+            }
         });
-//
-//        // 清空图片缓存，包括裁剪、压缩后的图片 注意:必须要在上传完成后调用 必须要获取权限
+
+        // 清空图片缓存，包括裁剪、压缩后的图片 注意:必须要在上传完成后调用 必须要获取权限
 //        RxPermissions permissions = new RxPermissions(this);
 //        permissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
 //            @Override
@@ -206,14 +218,13 @@ public class UploadActivity extends AppCompatActivity {
                     .selectionMode(PictureConfig.SINGLE)// 多选 or 单选
                     .previewVideo(true)// 是否可预览视频
                     .compressGrade(Luban.THIRD_GEAR)// luban压缩档次，默认3档 Luban.FIRST_GEAR、Luban.CUSTOM_GEAR
-            .isCamera(true)// 是否显示拍照按钮
+                    .isCamera(true)// 是否显示拍照按钮
                     .compress(true)// 是否压缩
                     .compressMode(PictureConfig.SYSTEM_COMPRESS_MODE)//系统自带 or 鲁班压缩 PictureConfig.SYSTEM_COMPRESS_MODE or LUBAN_COMPRESS_MODE
                     .hideBottomControls(true)// 是否显示uCrop工具栏，默认不显示
                     .selectionMedia(selectList2)// 是否传入已选图片
                     .forResult(2);//结果回调onActivityResult code
         }
-
     };
 
     //    拉取音频
@@ -331,9 +342,9 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    locationService.stop();
-                    locationService.start();// 定位SDK
-                   Toast.makeText(UploadActivity.this,"刷新成功！",Toast.LENGTH_SHORT).show();
+                locationService.stop();
+                locationService.start();// 定位SDK
+                Toast.makeText(UploadActivity.this,"刷新成功！",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -347,6 +358,9 @@ public class UploadActivity extends AppCompatActivity {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
+
+
+            Locations = location;
             // TODO Auto-generated method stub
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
                 StringBuffer sb = new StringBuffer(256);
@@ -357,11 +371,12 @@ public class UploadActivity extends AppCompatActivity {
                 sb.append(location.getLongitude());
                 sb.append("\n位置 : ");// 地址信息
                 sb.append(location.getAddrStr());
-                params.put("warning.latitude", location.getLatitude());
-                params.put("warning.longitude", location.getLongitude());
-                params.put("warning.description",Description.getText()+"");
-                params.put("warning.name",          Name.getText()+"");
-                params.put("warning.createTime",   TimeUtils.getCurrentTime() );
+//                params.put("warning.latitude", location.getLatitude());
+//                params.put("warning.longitude", location.getLongitude());
+//                params.put("warning.description",Description.getText()+"");
+//                params.put("warning.name",        location.getAddrStr());
+////                params.put("warning.createTime",   TimeUtils.getCurrentTime2() );
+//                params.put("warning.uploader",logingId );
 
                 if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
                     sb.append("\n状态 : ");
@@ -387,69 +402,87 @@ public class UploadActivity extends AppCompatActivity {
 
             }
         }
-
     };
     public class upload_OnClick implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-
             try {
-                uploadFile( UrlConst.FILE_UPLOAD);
+                if(Description.getText().toString().isEmpty()) {
+
+                    Toast.makeText(getApplicationContext(), "描述不能为空！", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    uploadFile( UrlConst.FILE_UPLOAD);
+                    finish();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
 
-        public void uploadFile( String url) throws Exception {
-            File file1;
-            File file2;
-            File file3;
+    public void uploadFile( String url) throws Exception {
 
-//                AsyncHttpClient client = new AsyncHttpClient();
-//                RequestParams params = new RequestParams();
+        RequestParams params = new RequestParams();
+        File file1;
+        File file2;
+        File file3;
 
-            if(selectList.size()>0){
-                file1=  new File(selectList.get(0).getCompressPath());
-                params.put("warning.zhaopian", file1);
-                params.put("warning.file",TimeUtils.getCurrentTime()+".jpg");
-            }
+        params.put("warning.latitude", Locations.getLatitude());
+        params.put("warning.longitude", Locations.getLongitude());
+        params.put("warning.description",Description.getText()+"");
+        params.put("warning.name",        Locations.getAddrStr());
+        params.put("warning.uploader",logingId );
 
-            if(selectList2.size()>0){
-                file2=  new File(selectList2.get(0).getPath());
-                params.put("warning.shipin", file2);
-                params.put("warning.video",TimeUtils.getCurrentTime()+".mp4");
-            }
 
-            if(selectList3.size()>0){
-                file3=  new File(selectList3.get(0).getPath());
-                params.put("warning.yinpin", file3);
-                params.put("warning.audio",TimeUtils.getCurrentTime()+".mp3");
-            }
-
-                // 上传文件
-                client.post(url, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
-
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                    }
-
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // TODO Auto-generated method stub
-                        super.onRetry(retryNo);
-                        // 返回重试次数
-                    }
-
-                });
+        if(selectList.size()>0){
+            file1=  new File(selectList.get(0).getCompressPath());
+            params.put("warning.zhaopian", file1);
+            params.put("warning.file",TimeUtils.getCurrentTime()+".jpg");
         }
 
+        if(selectList2.size()>0){
+            file2=  new File(selectList2.get(0).getPath());
+            params.put("warning.shipin", file2);
+            params.put("warning.video",TimeUtils.getCurrentTime()+".mp4");
+        }
+
+        if(selectList3.size()>0){
+            file3=  new File(selectList3.get(0).getPath());
+            params.put("warning.yinpin", file3);
+            params.put("warning.audio",TimeUtils.getCurrentTime()+".mp3");
+        }
+
+        // 上传文件
+        client.post(url, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
+                selectList.clear();
+                selectList2.clear();
+                selectList3.clear();
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                Toast.makeText(getApplicationContext(), "上传成功", Toast.LENGTH_LONG).show();
+                System.out.println("异常："+error);
+
+                finish();
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // TODO Auto-generated method stub
+                super.onRetry(retryNo);
+                // 返回重试次数
+            }
+
+        });
     }
 
 }

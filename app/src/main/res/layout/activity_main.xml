@@ -6,9 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.org.rivermanage.activaty.MainActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/loginOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_get" />
+
 
     <!--<include layout="@layout/buttons_item" />-->
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -24,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_dialer" />
+
 
     <include layout="@layout/content_main" />
 

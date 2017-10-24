@@ -104,7 +104,9 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
     }
 
     //调用网络访问进行登录
-    private void doLogin(String loginid, String password){
+    private void doLogin(final String loginid, String password){
+
+
         //1.调用网络进行登录
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -114,13 +116,13 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
 
 //        params.put("user.passWord", password);
 
-        params.put("user.passWord", sha1.getSha1(password));
+        params.put("user.passWord",sha1.getSha1(password));
+
+        System.out.println(">>>>>>>>>>>>"+sha1.getSha1(password));
 
         //url:   parmas：请求时携带的参数信息   responseHandler：是一个匿名内部类接受成功过失败
-        String url = UrlConst.LOGIN;
-//        Toast.makeText(this, url, Toast.LENGTH_SHORT).show();
-        System.out.println( url);
-        asyncHttpClient.post(url, params, new AsyncHttpResponseHandler() {
+
+        asyncHttpClient.post(UrlConst.LOGIN, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 //statusCode:状态码    headers：头信息  responseBody：返回的内容，返回的实体
@@ -137,8 +139,10 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
                         //2.1若返回json数据success为true的话，调用保存密码与自动登录状态的方法
                         if(jsonResult.isSuccess()){   //2.1成功，则进入主界面
                             savePassAndAutoLogin();
-                            Intent intent = new Intent(LoginActivity.this, UploadActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("logingId",loginid);
                             startActivity(intent);
+                            finish();
                         }else{   //2.2失败则显示提示信息
                             new AlertDialog.Builder(LoginActivity.this).setTitle("信息提示")
                                     .setIcon(R.mipmap.ic_launcher)
@@ -179,6 +183,8 @@ public class LoginActivity extends AppCompatActivity implements SeekBar.OnSeekBa
             String loginid = et_number.getText().toString().trim();
             String password = et_password.getText().toString().trim();
             doLogin(loginid, password);
+//            seekBar.setProgress(0);
+
         } else {
             tv.setVisibility(View.INVISIBLE);
         }

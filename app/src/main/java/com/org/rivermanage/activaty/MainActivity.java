@@ -70,8 +70,11 @@ import hdl.com.myhttputils.MyHttpUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String loginid="1";
 
+
+
+
+    private String logingId;
     private MapView mMapView = null;
     private BaiduMap mBaiduMap;
     private LocationService locService;
@@ -81,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();//<<<<<
+        logingId=intent.getStringExtra("logingId");
+
+        Toast.makeText(getApplicationContext(),logingId,Toast.LENGTH_SHORT).show();
         mMapView = (MapView) findViewById(R.id.bmapView);
 
         mBaiduMap = mMapView.getMap();
@@ -95,9 +103,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                             Intent intent = new Intent(MainActivity.this, UploadActivity.class);
+                            intent.putExtra("logingId",logingId);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
                             startActivity(intent);
 //                             finish();
-                Toast.makeText(getApplicationContext(),"点击了添加",Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(),"点击了添加",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -107,18 +117,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ShowListActivity.class);
+                intent.putExtra("logingId",logingId);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(),"点击了信息",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(),"点击了信息",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        FloatingActionButton out = (FloatingActionButton) findViewById(R.id.loginOut);
+        out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+
+                startActivity(intent);
+                finish();
+               // Toast.makeText(getApplicationContext(),"退出",Toast.LENGTH_SHORT).show();
 
             }
         });
 
         SelectWrning();
         setUserMapCenter();
-
-//        SelectWrningBy();
-//        setMarker();
     }
+
 
     /**
      * 设置中心点
